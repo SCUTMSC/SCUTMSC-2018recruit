@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=Edge">
+	<meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=no">
+	<title>申请结果查询 - 华南理工大学微软学生俱乐部</title>
+	<link rel="shortcut icon" href="../static//pictures/icon.png">
+	<link rel="stylesheet" href="http://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css">
+	<link rel="stylesheet" href="../static/css/competition.css">
+</head>
+
+<body>
+	<nav class="navbar navbar-default">
+		<div class="container-fluid">
+			<div class="navbar-header">
+				<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#menu" aria-expanded="false">
+					<span class="sr-only"></span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+				</button>
+				<span class="navbar-brand">华工微软俱乐部</span>
+			</div>
+
+			<div class="collapse navbar-collapse" id="menu">
+				<ul class="nav navbar-nav navbar-right">
+					<li><a href="/">申请表</a></li>
+					<li><a href="/arrangement">面试安排</a></li>
+					<li><a href="/result">结果查询</a></li>
+				</ul>
+			</div>
+		</div>
+	</nav>
+
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h3 class="modal-title text-center" id="page-title">申请结果查询</h3>
+			</div>
+			<div class="modal-body">
+				<form id="checkform" class="form-horizontal">
+
+					<div class="form-group">
+						<label class="col-sm-3 hidden-xs control-label">姓名</label>
+						<div class="col-sm-6 col-xs-10 col-xs-offset-1 col-sm-offset-0">
+							<input type="text" class="form-control" name="name" placeholder="请输入姓名" required>
+						</div>
+					</div>
+
+					<div id="login-segment">
+						<div class="form-group">
+							<label class="col-sm-3 hidden-xs control-label">学号</label>
+							<div class="col-sm-6 col-xs-10 col-xs-offset-1 col-sm-offset-0">
+								<input type="text" class="form-control" name="stuid" placeholder="12位学号" required>
+							</div>
+						</div>
+					</div>
+
+					<div id="login-phonenumber">
+						<div class="form-group">
+							<label class="col-sm-3 hidden-xs control-label">手机号</label>
+							<div class="col-sm-6 col-xs-10 col-xs-offset-1 col-sm-offset-0">
+								<input type="text" class="form-control" name="phonenumber" placeholder="报名时填写的11位长号" required>
+							</div>
+						</div>
+					</div>
+
+					<div class="modal-footer center-block">
+						<input type="submit" class="col-md-4 btn btn-lg btn-primary btn-block" id="page-btn" value="查询">
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+	
+	<div class="copyright">© 2018 MSC, SCUT<br>Maintainer: Ruihang Xia <br> Frontend by God Xie</div>
+
+	<script src="http://cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
+	<script src="http://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+	<script src="../static/js/competition.js"></script>
+	<script>
+		$(document).ready(function() {
+			$("#checkform").submit(function(e) {
+				e.preventDefault();
+				$.post("/api/query", {
+					name: checkform.name.value,
+					schoolID: checkform.stuid.value,
+					telephone: checkform.phonenumber.value,
+				}, function(data){
+					if(typeof data === 'string')
+						var d = JSON.parse(data);
+					else d = data;
+					if(d.result===-1) {
+						modalAlert("尚未开始录取流程，请稍后再试");
+						// modalAlert("恭喜！您已通过面试，顺利加入"+ d.msg +"！<br>请留意我们通过您预留的联系方式发送的相关信息。");
+						//modalAlert("目前查询到的结果有：<br>" + d.msg);
+					}
+					else if(d.result === 1){
+						modalAlert("恭喜！您已通过面试，顺利加入"+ d.department +"！<br>请留意我们通过您预留的联系方式发送的相关信息。");
+					}
+					else if(d.result === 2){
+						modalAlert("还没想好怎么拒绝");
+					}
+					else if(d.result === 3){
+						modalAlert("录取流程进行中（部长们在抢人");
+					}
+					else modalAlert(d.msg);
+					//modalAlert(d.result);
+				});
+			});
+		});
+	</script>
+</body>
+</html>
+<!--
+	-1 for not yet
+	1 for ok
+	2 for reject
+	3 for waiting
+-->
+

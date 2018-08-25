@@ -12,37 +12,20 @@ from django.db.utils import IntegrityError
 
 
 def valid_check(request):
-    """try:
-        if re.match(r'^\d{12}$',request.POST.get('schoolID')) == None:
-            return request.POST.get('schoolID')
-        if re.match(r'^[\u4e00-\u9fa5]{0,}$',request.POST.get('name')) == None:
-            return 2
-        if re.match(r'^male|female$',request.POST.get('sex')) == None:
-            return 3
-        if re.match(r'^1[34578]\d{9}$',request.POST.get('telephone')) == None:
-            return 4
-        if re.match(r'^Yes|No$',request.POST.get('adjust')) == None:
-            return 5
-        if re.match(r'^master|bachelor$',request.POST.get('degree')) == None:
-            return 6
-        if re.match(r'^\w+([-+.]\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*$',request.POST.get('email')) == None:
-            return 7
-    except TypeError:
-        return "not completed"""
     if re.match(r'^\d{12}$',request.POST.get('schoolID')) == None:
-        return request.POST.get('schoolID')
+        return "学号格式错误"
     if re.match(r'^[\u4e00-\u9fa5]{0,}$',request.POST.get('name')) == None:
-        return 2
+        return "请使用中文姓名"
     if re.match(r'^male|female$',request.POST.get('sex')) == None:
-        return 3
+        return "秀吉来的？"
     if re.match(r'^1[34578]\d{9}$',request.POST.get('telephone')) == None:
-        return 4
+        return "手机号码格式错误"
     if re.match(r'^Yes|No$',request.POST.get('adjust')) == None:
-        return 5
+        return "是否服从调剂？"
     if re.match(r'^master|bachelor$',request.POST.get('degree')) == None:
-        return 6
+        return "研究生or本科生"
     if re.match(r'^\w+([-+.]\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*$',request.POST.get('email')) == None:
-        return 7
+        return "邮箱格式错误"
     return 0
 
 @csrf_exempt
@@ -50,7 +33,7 @@ def valid_check(request):
 def add_layman(request):
     response = {}
     if  Layman.objects.filter( schoolID = str( request.POST.get('schoolID') ) ).count() != 0:
-        response['msg'] = "already applied"
+        response['msg'] = "该学号已经提交申请，请关注面试安排"
         response['error_code'] = 3
         return JsonResponse(response)
     if valid_check(request) != 0:
@@ -74,33 +57,19 @@ def add_layman(request):
             introduce = request.POST.get('introduce')
         )
         layman.save()
-        response['msg'] = 'success'
+        response['msg'] = '申请成功'
         response['error_code'] = 0
     except IntegrityError:
-        response['msg'] = str('some parameters missing')
+        response['msg'] = '提供的参数/信息不够啊'
     except:
-        response['msg'] = str("unexpect error")
+        response['msg'] = "发生了不应该出现的错误，请联系管理员"
         response['error_code'] = 1
     layman.save()
-    response['msg'] = 'success'
+    response['msg'] = '申请成功'
     response['error_code'] = 0
 
     return JsonResponse(response)
 
-"""@csrf_exempt
-@require_http_methods(["POST"])########## delete method after test
-def show_laymans(request):
-    response = {}
-    try:
-        laymans = Layman.objects.filter()
-        response['list']  = json.loads(serializers.serialize("json", laymans))
-        response['msg'] = 'success'
-        response['error_code'] = 0
-    except:
-        response['msg'] = str("unexpect error")
-        response['error_code'] = 1
-
-    return JsonResponse(response)"""
 
 @csrf_exempt
 @require_http_methods(["POST"])
@@ -108,29 +77,29 @@ def query(request):
     response = {}
     
     if re.match(r'^1[34578]\d{9}$',str(request.POST.get('telephone'))) == None:
-        response['msg'] = "phone number error"
+        response['msg'] = "电话号码格式错误"
         response['error_code'] = 2
         return JsonResponse(response)
     try:
         layman = Layman.objects.filter( schoolID = str( request.POST.get('schoolID') ) )
     except:
-        response['msg'] = "database error"
+        response['msg'] = "数据库错误，请联系管理员"
         response['error_code'] = 1
 
     if layman.count() == 0:
-        response['msg'] = "not applied yet"
+        response['msg'] = "尚未报名，快去提交申请表吧！"
         response['error_code'] = 4
         return JsonResponse(response)
     layman = Layman.objects.get( schoolID = str( request.POST.get('schoolID') ) )
     if request.POST.get('name') != layman.name or request.POST.get('telephone') != layman.telephone:
-        response['msg'] = "information not match"
+        response['msg'] = "提供的三项信息不匹配"
         response['error_code'] = 2
     else:
         #response['list']  = json.loads(serializers.serialize("json", layman))
         response['arrangement'] = layman.interview
         response['result'] = layman.passed
         response['department'] = layman.department
-        response['msg'] = 'success'
+        response['msg'] = '查询成功'
         response['error_code'] = 0
     return JsonResponse(response)
 
@@ -143,20 +112,4 @@ def query(request):
 """
 
 def index(request):
-    return HttpResponse("Hello, world. You're at the polls index.")
-
-"""(
-    schoolID='201730612345',
-    name='%E9%95%BF%E8%80%85',
-    sex='male',
-    college='%E8%BD%AF%E4%BB%B6%E5%AD%A6%E9%99%A2',
-    grade='2017',
-    dorm='C10-233',
-    telephone='13533222333',
-    department1='%E6%8A%80%E6%9C%AF%E9%83%A8',
-    department2='%E6%8A%80%E6%9C%AF%E9%83%A8',
-    adjust='Yes',
-    degree="bachelor",
-    email="i@waynest.com",
-    introduce="hdfsdavgdfgd",
-}"""
+    return HttpResponse("index")

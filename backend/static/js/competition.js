@@ -34,44 +34,6 @@ function registerPrepare() {
 		applyFormFilled = false;
 		$("#register").submit(function(e) {
 			e.preventDefault();
-			/*if (!applyFormFilled) {
-				applyFormFilled = true;
-				$.ajax({
-					type: 'POST',
-					url: '/api/add_layman',
-					data: JSON.stringify({
-						schoolID: register.stuid.value,
-						name: register.name.value,
-						sex: register.gender.value == 1 ? "male" : "female",
-						college: register.school.value,
-						grade: parseInt(register.grade.value),
-						dorm: register.dorm.value,
-						telephone: register.tel.value,
-						department1: register.dept1.value,
-						department2: register.dept2.value === "" ? "null" : register.dept2.value,
-						adjust: register.adjust.value == 1 ? "Yes" : "No",
-						degree: register.master.value == 1 ? "master" : "bachelor",
-						email: register.email.value,
-						introduce: register.intro.value
-					}),
-					success: function(data) {
-						if(typeof data === 'string')
-							var d = JSON.parse(data);
-						else d = data;
-						if (data.error_code == 0) {
-							modalAlert(
-								'信息提交成功！<br><br>' +  
-								'<h5>请关注面试安排，谢谢。', function () {
-								// freshCaptcha();
-								window.location.href = '..';
-							});
-						} else {
-							modalAlert(data.msg);
-							// freshCaptcha();
-						}
-					}
-				});
-			}*/
 			$.post("/api/add_layman", {
 				schoolID: register.stuid.value,
 				name: register.name.value,

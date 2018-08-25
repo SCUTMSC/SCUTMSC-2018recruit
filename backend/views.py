@@ -26,6 +26,10 @@ def valid_check(request):
         return "研究生or本科生"
     if re.match(r'^\w+([-+.]\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*$',request.POST.get('email')) == None:
         return "邮箱格式错误"
+    '''if re.match(r'[1-9][0-9]{4,14}',request.POST.get('QQnumber')) == None:
+        return "QQ号错误"'''
+    if len(request.POST.get('QQnumber')) <4 or len(request.POST.get('QQnumber')) > 14:
+        return "QQ号错误"
     return 0
 
 @csrf_exempt
@@ -46,7 +50,8 @@ def add_layman(request):
             name = request.POST.get('name'),
             sex = request.POST.get('sex'),
             college = request.POST.get('college'),
-            grade = request.POST.get('grade'),
+            #grade = request.POST.get('grade'),
+            QQnumber = request.POST.get('QQnumber'),
             dorm = request.POST.get('dorm'),
             telephone = request.POST.get('telephone'),
             department1 = request.POST.get('department1'),

@@ -11,7 +11,7 @@ class Layman(models.Model):
     name = models.CharField(max_length = 30)
     sex = models.CharField(max_length = 5)
     college = models.CharField(max_length = 100)
-    grade = models.CharField(max_length = 30)
+    QQnumber = models.CharField(max_length =15)
     dorm = models.CharField(max_length = 10)
     telephone = models.CharField(max_length = 11)
     department1 = models.CharField(max_length = 50)

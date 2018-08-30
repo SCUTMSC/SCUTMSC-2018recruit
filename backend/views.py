@@ -87,12 +87,14 @@ def query(request):
         return JsonResponse(response)
     try:
         layman = Layman.objects.filter( schoolID = str( request.POST.get('schoolID') ) )
+        if layman.count() == 0:
+            layman = NorthCampus.objects.filter( schoolID = str( request.POST.get('schoolID') ) )
     except:
         response['msg'] = "数据库错误，请联系管理员"
         response['error_code'] = 1
 
     if layman.count() == 0:
-        response['msg'] = "尚未报名，快去提交申请表吧！"
+        response['msg'] = "尚未报名，快去相应的校区提交申请表吧！"
         response['error_code'] = 4
         return JsonResponse(response)
     layman = Layman.objects.get( schoolID = str( request.POST.get('schoolID') ) )

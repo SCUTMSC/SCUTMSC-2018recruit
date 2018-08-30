@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 from __future__ import unicode_literals
 from django.shortcuts import render
-from .models import Layman
+from .models import Layman, NorthCampus
 from django.http import JsonResponse,HttpResponse
 from django.views.decorators.http import require_http_methods
 import json
@@ -108,6 +108,60 @@ def query(request):
         response['error_code'] = 0
     return JsonResponse(response)
 
+@csrf_exempt
+@require_http_methods(["POST"])
+def add_layman_north(request):
+    response = {}
+    if  NorthCampus.objects.filter( schoolID = str( request.POST.get('schoolID') ) ).count() != 0:
+        response['msg'] = "该学号已经提交申请，请关注面试安排"
+        response['error_code'] = 3
+        return JsonResponse(response)
+    if valid_check(request) != 0:
+        response['msg'] = str(valid_check(request))
+        response['error_code'] = 2
+        return JsonResponse(response)
+    try:
+        layman = NorthCampus(
+            schoolID = request.POST.get('schoolID'),
+            name = request.POST.get('name'),
+            sex = request.POST.get('sex'),
+            college = request.POST.get('college'),
+            #grade = request.POST.get('grade'),
+            QQnumber = request.POST.get('QQnumber'),
+            dorm = request.POST.get('dorm'),
+            telephone = request.POST.get('telephone'),
+            department1 = request.POST.get('department1'),
+            department2 = request.POST.get('department2'),
+            adjust = request.POST.get('adjust'),
+            degree = request.POST.get('degree'),
+            email = request.POST.get('email'),
+
+            professor_name = request.POST.get('pro_name'),
+            professor_major = request.POST.get('pro_major'),
+            aimat = request.POST.get('aimat'),
+            monologue = request.POST.get('monologue'),
+            habbit = request.POST.get('habbit'),
+            speciality = request.POST.get('speciality'),
+            keypoint = request.POST.get('keypoint'),
+            whyjoin = request.POST.get('whyjoin'),
+            whychoose = request.POST.get('whychoose'),
+
+        )
+        layman.save()
+        response['msg'] = '申请成功'
+        response['error_code'] = 0
+    except IntegrityError:
+        response['msg'] = '提供的参数/信息不够啊'
+    except:
+        response['msg'] = "发生了不应该出现的错误，请联系管理员"
+        response['error_code'] = 1
+    layman.save()
+    response['msg'] = '申请成功'
+    response['error_code'] = 0
+
+    return JsonResponse(response)
+
+
 """
 0 for valid
 1 for others error
@@ -118,3 +172,4 @@ def query(request):
 
 def index(request):
     return HttpResponse("index")
+

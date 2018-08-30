@@ -25,8 +25,8 @@
 
 			<div class="collapse navbar-collapse" id="menu">
 				<ul class="nav navbar-nav navbar-right">
-						<li><a href="">南校申请表</a></li>
-						<li><a href="recruit_north">北校申请表</a></li>
+					<li><a href="">南校申请表</a></li>
+					<li><a href="recruit_north">北校申请表</a></li>
 					<li><a href="arrangement">面试安排</a></li>
 					<li><a href="result">结果查询</a></li>
 				</ul>
@@ -36,7 +36,7 @@
 	
 	<div class="container">
 		<div class="modal-content">
-			<div class="form-title">大学城校区 2018 年秋季招新 · 申请表</div>
+			<div class="form-title">五山校区 2018 年秋季招新 · 申请表</div>
 			<img class="form-pic" src="../static/pictures/form-bottom-pic.png">
 			<form id="register">
 				<div class="modal-body">
@@ -129,29 +129,38 @@
 							<label>QQ号</label>
 							<input type="text" class="form-control" name="QQnumber" placeholder="例：1054163735" required>
 						</div>
+						<div class="col-md-4 form-group">
+							<label>导师姓名</label>
+							<input type="text" class="form-control" name="pro_name" placeholder="王迎军" required>
+						</div>
+						<div class="col-md-4 form-group">
+							<label>导师研究方向</label>
+							<input type="text" class="form-control" name="pro_major" placeholder="生物医学材料基础及应用" required>
+						</div>
 					</div>
 					<div class="subtitle subtitle-register">申请信息</div>
 					<div class="row">
 						<div class="col-md-4 form-group">
 							<label>志愿一</label>
 							<select class="form-control" id="dept1-select" name="dept1">
-								<option value="策划推广部">策划推广部</option>
-								<option value="传媒部">传媒部</option>
-								<option value="公关部">公关部</option>
 								<option value="技术部">技术部</option>
-								<option value="文化交流部">文化交流部</option>
+								<option value="运营部">运营部</option>
+								<option value="外联部">外联部</option>
 							</select>
 						</div>
 						<div class="col-md-4 form-group" id="dept2-div">
 							<label>志愿二</label>
 							<select class="form-control" id="dept2-select" name="dept2">
 								<option value="">第二志愿可以为空</option>
-								<option value="策划推广部">策划推广部</option>
-								<option value="传媒部">传媒部</option>
-								<option value="公关部">公关部</option>
 								<option value="技术部">技术部</option>
-								<option value="文化交流部">文化交流部</option>
+								<option value="运营部">运营部</option>
+								<option value="外联部">外联部</option>
 							</select>
+						</div>
+						<div class = "explanation"> 
+							<p><center>技术部：主要工作是开发，包括前端，后段，移动段等</center></p>
+							<p><center>运营部：包括组织策划、宣传、公关等职能小组</center></p>
+							<p><center>外联部：主要负责拉赞助，与学校、企业沟通、谈判等</center></p>
 						</div>
 						<div class = "col-md-4 form-group" id="adjust">
 							<label>是否服从调剂</label>
@@ -160,11 +169,36 @@
 								<option value="0">不服从</option>
 							</select>
 						</div>
+						<div class="col-md-4 form-group">
+							<label>感兴趣的技术方向或职能小组</label>
+							<input type="text" class="form-control" name="aimat" placeholder="" required>
+						</div>
 					</div>
+					<div class="col-md-4 form-group">
+						<label>兴趣爱好</label>
+						<input type="text" class="form-control" name="habbit" placeholder="" required>
+					</div>
+					<div class="col-md-4 form-group">
+						<label>特长</label>
+						<input type="text" class="form-control" name="speciality" placeholder="" required>
+					</div>
+
 					<div class="row">
 						<div class="col-md-12 form-group">
-							<label>个人介绍</label>
-							<textarea class="form-control" rows="10" name="intro" placeholder="介绍一下你自己，也可写写对俱乐部的意见或期望等~" required></textarea>
+							<label>个人陈述</label>
+							<textarea class="form-control" rows="10" name="monologue" placeholder="结合自身优点和经历，说说你为什么选择志愿一的部门" required></textarea>
+						</div>
+						<div class="col-md-12 form-group">
+							<label>技术水平</label>
+							<textarea class="form-control" rows="10" name="keypoint" placeholder="你的技术水平（擅长技能、项目经历、研究方向等）或学生工作经历，本题是筛选重点，请认真填写" required></textarea>
+						</div>
+						<div class="col-md-12 form-group">
+							<label>你希望从俱乐部得到什么</label>
+							<textarea class="form-control" rows="10" name="whyjoin" placeholder="你希望从俱乐部得到什么（即为什么加入俱乐部）" required></textarea>
+						</div>
+						<div class="col-md-12 form-group">
+							<label>你能为俱乐部带来什么</label>
+							<textarea class="form-control" rows="10" name="whychoose" placeholder="" required></textarea>
 						</div>
 					</div>
 				</div>
@@ -182,33 +216,9 @@
 
 	<script src="https://cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
 	<script src="https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-	<script src="../static/js/competition.js"></script>
+	<script src="../static/js/competition_north.js"></script>
 	<script>
 		registerPrepare();
-		function resetOptions() {
-			$("#dept1-select").empty();
-			$("#dept1-select").append("<option value=\"策划推广部\">策划推广部</option>");
-			$("#dept1-select").append("<option value=\"传媒部\">传媒部</option>");
-			$("#dept1-select").append("<option value=\"公关部\">公关部</option>");
-			$("#dept1-select").append("<option value=\"技术部\">技术部</option>");
-			$("#dept1-select").append("<option value=\"文化交流部\">文化交流部</option>");
-			$("#dept2-div").show();
-			$("#adjust").show();
-		}
-		function techOnly() {
-			if($("#master-select").val() != "1" &&
-				$("#grade-select").val() != "2017") {
-				resetOptions();
-				return;
-			}
-			$("#dept2-div").hide();
-			$("#dept2-div").val("");
-			$("#adjust").hide();
-			$('#adjust').val(1)
-			$("#dept1-select").empty();
-			$("#dept1-select").html("<option value=\"技术部\">技术部</option>");
-			alert("硕士研究生或本科二年级仅可申请技术部");
-		}
 		$(document).ready(function() {
 			//modalAlert("<p>当前为：正式批报名</p><ol><li>志愿可只选择一项，选择两项的将安排两场面试；</li><li>提交时只需点击一次，以免造成错误；</li><li>提交后可在面试安排页填入信息并查询，若未提示“报名信息不存在”则报名成功。</li></ol><p>有任何未尽事宜或疑问请加QQ群：612499237</p>");
 			//modalAlert("<p>感谢您对华南理工大学微软学生俱乐部（大学城校区）的关注与支持！2017年招新报名已于9月17日结束，我们明年再会！</p>");

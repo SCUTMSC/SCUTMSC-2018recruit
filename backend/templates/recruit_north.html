@@ -40,6 +40,17 @@
 			<img class="form-pic" src="../static/pictures/form-bottom-pic.png">
 			<form id="register">
 				<div class="modal-body">
+					<div class="subtitle subtitle-intro">微软学生俱乐部</div>
+                    <p><img src = "../static/pictures/icon.png" alt  = "图挂了" height="18px" width="18px" align="bottom">
+                        &nbsp;华南理工大学微软学生俱乐部（SCUTMSC）是微软亚洲研究院(MSRA)和华南理工大学联合创办的学术性校级社团，以学术讲座、技术沙龙、大型比赛等形式，通过举办Beauty of Programing、Microsoft Imagine Cup，编程一小时，Hackthon，Seedcoder等全球学生科技大赛予力众生，成就非凡。
+                    </p>
+                    <p><img src = "../static/pictures/icon.png" alt  = "图挂了" height="18px" width="18px" align="bottom">
+                        &nbsp;华工微软学生俱乐部期待热爱技术、勇于创新、乐于分享、信奉互联网开放共享精神、积极帮助他人的每一位学生的加入，并不仅仅局限于技术类背景的学生。
+                    </p>
+                    <p><img src = "../static/pictures/icon.png" alt  = "图挂了" height="18px" width="18px" align="bottom">
+                        &nbsp;加入我们不仅有机会参加微软夏令营，更能与MSRA的大牛工程师面对面交流切磋，拿到MSRA的实习offer！加入我们，来一起让美好的事情在明天发生！
+					</p>
+					
 					<div class="subtitle subtitle-register">基本信息</div>
 					<div class="row">
 						<div class="col-md-4 form-group">
@@ -96,8 +107,13 @@
 						<div class="col-md-4 form-group">
 							<label>在读学历</label>
 							<select class="form-control" id="master-select" name="master" onChange="techOnly()">
-								<option value="0">本科生</option>
-								<option value="1">硕士研究生</option>
+								<option value="大一">大一</option>
+								<option value="大二">大二</option>
+								<option value="大三">大三</option>
+								<option value="大四">大四</option>
+								<option value="研一">研一</option>
+								<option value="研二">研二</option>
+								<option value="研三">研三</option>
 							</select>
 						</div>
 						<!--
@@ -140,6 +156,16 @@
 					</div>
 					<div class="subtitle subtitle-register">申请信息</div>
 					<div class="row">
+						<div class = "explanation"> 
+							<p><center>
+								<img src = "../static/pictures/icon.png" alt  = "图挂了" height="18px" width="18px" align="bottom">
+								&nbsp;技术部：主要工作是开发，包括前端，后段，移动段等
+								<img src = "../static/pictures/icon.png" alt  = "图挂了" height="18px" width="18px" align="bottom">
+								&nbsp;运营部：包括组织策划、宣传、公关等职能小组
+								<img src = "../static/pictures/icon.png" alt  = "图挂了" height="18px" width="18px" align="bottom">
+								&nbsp;外联部：主要负责拉赞助，与学校、企业沟通、谈判等
+							</center></p>
+						</div>
 						<div class="col-md-4 form-group">
 							<label>志愿一</label>
 							<select class="form-control" id="dept1-select" name="dept1">
@@ -157,10 +183,9 @@
 								<option value="外联部">外联部</option>
 							</select>
 						</div>
-						<div class = "explanation"> 
-							<p><center>技术部：主要工作是开发，包括前端，后段，移动段等</center></p>
-							<p><center>运营部：包括组织策划、宣传、公关等职能小组</center></p>
-							<p><center>外联部：主要负责拉赞助，与学校、企业沟通、谈判等</center></p>
+						<div class="col-md-4 form-group">
+							<label>感兴趣的技术方向或职能小组</label>
+							<input type="text" class="form-control" name="aimat" placeholder="技术部的前端，小程序开发等或者运营部的产品经理" required>
 						</div>
 						<div class = "col-md-4 form-group" id="adjust">
 							<label>是否服从调剂</label>
@@ -170,18 +195,15 @@
 							</select>
 						</div>
 						<div class="col-md-4 form-group">
-							<label>感兴趣的技术方向或职能小组</label>
-							<input type="text" class="form-control" name="aimat" placeholder="" required>
+							<label>兴趣爱好</label>
+							<input type="text" class="form-control" name="habbit" placeholder="" required>
+						</div>
+						<div class="col-md-4 form-group">
+							<label>特长</label>
+							<input type="text" class="form-control" name="speciality" placeholder="" required>
 						</div>
 					</div>
-					<div class="col-md-4 form-group">
-						<label>兴趣爱好</label>
-						<input type="text" class="form-control" name="habbit" placeholder="" required>
-					</div>
-					<div class="col-md-4 form-group">
-						<label>特长</label>
-						<input type="text" class="form-control" name="speciality" placeholder="" required>
-					</div>
+					
 
 					<div class="row">
 						<div class="col-md-12 form-group">
@@ -198,7 +220,7 @@
 						</div>
 						<div class="col-md-12 form-group">
 							<label>你能为俱乐部带来什么</label>
-							<textarea class="form-control" rows="10" name="whychoose" placeholder="" required></textarea>
+							<textarea class="form-control" rows="10" name="whychoose" placeholder="如果你是主席，你想怎么建设微软俱乐部？分点回答" required></textarea>
 						</div>
 					</div>
 				</div>

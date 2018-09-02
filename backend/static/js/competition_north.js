@@ -45,7 +45,7 @@ function registerPrepare() {
 				department1: register.dept1.value,
 				department2: register.dept2.value === "" ? "null" : register.dept2.value,
 				adjust: register.adjust.value == 1 ? "Yes" : "No",
-				degree: register.master.value == 1 ? "master" : "bachelor",
+				degree: register.master.value,
 				email: register.email.value,
 
 				pro_name: register.pro_name.value,
@@ -64,8 +64,10 @@ function registerPrepare() {
 				else d = data;
 				if(d.msg === "success") {
 					modalAlert(
-						'信息提交成功！<br><br>' +  
-						'<h5>请关注面试安排，谢谢。', function () {
+						'感谢您报名参加华工微软学生俱乐部，我们将会在最快的时间内通知您结果。<br><br>' +  
+						'请扫描群二维码，欢迎加入华南理工大学北校招新答疑群<br><br>'+
+						'（或者搜索群号：537873352）'+
+						'<img src = "../static/pictures/NorthGroup.png">', function () {
 						// freshCaptcha();
 						window.location.href = '..';
 						});

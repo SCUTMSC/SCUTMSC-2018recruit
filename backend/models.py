@@ -24,6 +24,7 @@ class Layman(models.Model):
     interview = models.CharField(max_length = 30,default="")
     passed = models.IntegerField(default = -1)
     department = models.CharField(max_length = 30,default = "")
+    applydate = models.DateField(auto_now_add=True)
 
     def __unicode__(self):
         return self.name

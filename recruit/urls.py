@@ -26,4 +26,6 @@ urlpatterns = [
     url(r'^arrangement',TemplateView.as_view(template_name = "arrangement.html")),
     url(r'^result',TemplateView.as_view(template_name = "result.html")),
     url(r'^recruit_north',TemplateView.as_view(template_name='recruit_north.html')),
+
+    url(r'^computer_clinic',TemplateView.as_view(template_name = "computer_clinic.html")),
 ]

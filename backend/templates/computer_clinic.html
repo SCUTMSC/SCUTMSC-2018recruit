@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=Edge">
+	<meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=no">
+	<title>2018年秋季招新 - 华南理工大学电脑诊所</title>
+	<link rel="shortcut icon" href="../static/pictures/icon.png">
+	<link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css">
+	<link rel="stylesheet" href="../static/css/competition.css">
+</head>
+
+<body>
+
+	<nav class="navbar navbar-default">
+		<div class="container-fluid">
+			<div class="navbar-header">
+				<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#menu" aria-expanded="false">
+					<span class="sr-only"></span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+				</button>
+				<span class="navbar-brand">电脑诊所</span>
+			</div>
+
+		</div>
+	</nav>
+	
+	<div class="container">
+		<div class="modal-content">
+			<div class="form-title">电脑诊所 2018 年秋季招新 · 申请表</div>
+			<img class="form-pic" src="../static/pictures/cc.png">
+			<form id="register">
+				<div class="modal-body">
+					<div class="subtitle subtitle-register">基本信息</div>
+					<div class="row">
+						<div class="col-md-4 form-group">
+							<label>姓名</label>
+							<input type="text" class="form-control" name="name" placeholder="例：解芙鸽" required>
+						</div>
+						<div class="col-md-4 form-group">
+							<label>学号</label>
+							<input type="text" class="form-control" name="stuid" placeholder="例：201819260817" required>
+						</div>
+						<div class="col-md-4 form-group">
+							<label>性别</label>
+							<select class="form-control" id="gender-select" name="gender">
+								<option value="1">男</option>
+								<option value="0">女</option>
+							</select>
+						</div>
+					</div>
+
+					<div class="row">
+						<div class="col-md-4 form-group">
+							<label>宿舍号</label>
+							<input type="text" class="form-control" name="dorm" placeholder="例：C14-233"  required>
+						</div>
+						<div class = "col-md-4 form-group">
+							<label>所属班级</label>
+							<input type = "text" class="form-control" name="class" placeholder="例：一班"  required>
+						</div>
+						<div class = "col-md-4 form-group" id="leader">
+							<label>是否愿意成为组长</label>
+							<select class="form-control" id="adjust-select" name="leader">
+								<option value="1">愿意</option>
+								<option value="0">不愿意</option>
+							</select>
+						</div>
+					</div>
+
+					<div class="subtitle subtitle-register">联系信息</div>
+					<div class="row">
+						<div class="col-md-4 form-group">
+							<label>电子邮箱</label>
+							<input type="text" class="form-control" name="email" placeholder="例：xfg@waynest.com" required>
+						</div>
+						<div class="col-md-4 form-group">
+							<label>移动电话号码</label>
+							<input type="text" class="form-control" name="tel" placeholder="例：13319260817" required>
+						</div>
+						<div class="col-md-4 form-group">
+							<label>QQ号</label>
+							<input type="text" class="form-control" name="QQnumber" placeholder="例：1708192600" required>
+						</div>
+					</div>
+					<div class="subtitle subtitle-register">申请信息</div>
+					<div class="row">
+						<div class="col-md-12 form-group">
+							<label>个人介绍</label>
+							<textarea class="form-control" rows="10" name="intro" placeholder="介绍一下你自己，比如擅长哪一方面等，也可写写对电脑诊所的期望~" required></textarea>
+						</div>
+					</div>
+				</div>
+
+				<div class="modal-footer">
+					<input type="submit" class="btn btn-lg btn-primary btn-block" value="确认报名">
+				</div>
+			</form>
+
+			
+		</div>
+	</div>
+
+	<div class="copyright">© 2018 C+C, SCUT<br>Maintainer: Ruihang Xia <br> Frontend by God Xie</div>
+
+	<script src="https://cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
+	<script src="https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+	<script src="../static/js/cc.js"></script>
+	<script>
+		registerPrepare();
+		$(document).ready(function() {
+			//modalAlert("<p>当前为：正式批报名</p><ol><li>志愿可只选择一项，选择两项的将安排两场面试；</li><li>提交时只需点击一次，以免造成错误；</li><li>提交后可在面试安排页填入信息并查询，若未提示“报名信息不存在”则报名成功。</li></ol><p>有任何未尽事宜或疑问请加QQ群：612499237</p>");
+			//modalAlert("<p>感谢您对华南理工大学微软学生俱乐部（大学城校区）的关注与支持！2017年招新报名已于9月17日结束，我们明年再会！</p>");
+		});
+	</script>
+</body>
+</html>

@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 from __future__ import unicode_literals
 from django.shortcuts import render
-from .models import Layman, NorthCampus
+from .models import Layman, NorthCampus,CC
 from django.http import JsonResponse,HttpResponse
 from django.views.decorators.http import require_http_methods
 import json
@@ -18,16 +18,10 @@ def valid_check(request):
         return "请使用中文姓名"
     if re.match(r'^male|female$',request.POST.get('sex')) == None:
         return "秀吉来的？"
-    if re.match(r'^1[34578]\d{9}$',request.POST.get('telephone')) == None:
+    if re.match(r'^1[3456789]\d{9}$',request.POST.get('telephone')) == None:
         return "手机号码格式错误"
-    if re.match(r'^Yes|No$',request.POST.get('adjust')) == None:
-        return "是否服从调剂？"
-    if re.match(r'^master|bachelor$',request.POST.get('degree')) == None:
-        return "研究生or本科生"
     if re.match(r'^\w+([-+.]\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*$',request.POST.get('email')) == None:
         return "邮箱格式错误"
-    '''if re.match(r'[1-9][0-9]{4,14}',request.POST.get('QQnumber')) == None:
-        return "QQ号错误"'''
     if len(request.POST.get('QQnumber')) <4 or len(request.POST.get('QQnumber')) > 14:
         return "QQ号错误"
     return 0
@@ -162,6 +156,61 @@ def add_layman_north(request):
     response['error_code'] = 0
 
     return JsonResponse(response)
+
+@csrf_exempt
+@require_http_methods(["POST"])
+def cc(request):
+
+    msg=""
+    if re.match(r'^\d{12}$',request.POST.get('schoolID')) == None:
+        msg= "学号格式错误"
+    if re.match(r'^[\u4e00-\u9fa5]{0,}$',request.POST.get('name')) == None:
+        msg= "请使用中文姓名"
+    if re.match(r'^male|female$',request.POST.get('sex')) == None:
+        msg= "秀吉来的？"
+    if re.match(r'^1[3456789]\d{9}$',request.POST.get('telephone')) == None:
+        msg = "手机号码格式错误"
+    if re.match(r'^\w+([-+.]\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*$',request.POST.get('email')) == None:
+        msg= "邮箱格式错误"
+    if len(request.POST.get('QQnumber')) <4 or len(request.POST.get('QQnumber')) > 14:
+        msg= "QQ号错误"
+
+    response = {}
+    if  CC.objects.filter( schoolID = str( request.POST.get('schoolID') ) ).count() != 0:
+        response['msg'] = "该学号已经提交申请，请关注面试安排"
+        response['error_code'] = 3
+        return JsonResponse(response)
+    if msg != "":
+        response['msg'] = msg
+        response['error_code'] = 2
+        return JsonResponse(response)
+    try:
+        ccc = CC(
+            schoolID = request.POST.get('schoolID'),
+            name = request.POST.get('name'),
+            sex = request.POST.get('sex'),
+            QQnumber = request.POST.get('QQnumber'),
+            dorm = request.POST.get('dorm'),
+            telephone = request.POST.get('telephone'),
+            leader = request.POST.get('leader'),
+            email = request.POST.get('email'),
+            introduce = request.POST.get('introduce'),
+            classes = request.POST.get('class'),
+        )
+        ccc.save()
+        response['msg'] = '申请成功'
+        response['error_code'] = 0
+    except IntegrityError:
+        response['msg'] = '提供的参数/信息不够啊'
+    except:
+        response['msg'] = "发生了不应该出现的错误，请联系管理员"
+        response['error_code'] = 1
+    ccc.save()
+    response['msg'] = '申请成功'
+    response['error_code'] = 0
+
+    return JsonResponse(response)
+
 
 
 """

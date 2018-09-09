@@ -19,6 +19,8 @@ from django.views.generic import TemplateView
 
 import backend.urls
 
+from backend import views
+
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'^api/',include(backend.urls)),
@@ -28,4 +30,5 @@ urlpatterns = [
     url(r'^recruit_north',TemplateView.as_view(template_name='recruit_north.html')),
 
     url(r'^computer_clinic',TemplateView.as_view(template_name = "computer_clinic.html")),
+    url(r'export_cc',views.export_csv_cc),
 ]

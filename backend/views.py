@@ -9,6 +9,7 @@ from django.core import serializers
 import re
 from django.views.decorators.csrf import csrf_exempt
 from django.db.utils import IntegrityError
+import csv
 
 
 def valid_check(request):
@@ -75,7 +76,7 @@ def add_layman(request):
 def query(request):
     response = {}
     
-    if re.match(r'^1[34578]\d{9}$',str(request.POST.get('telephone'))) == None:
+    if re.match(r'^1[3456789]\d{9}$',str(request.POST.get('telephone'))) == None:
         response['msg'] = "电话号码格式错误"
         response['error_code'] = 2
         return JsonResponse(response)
@@ -211,6 +212,27 @@ def cc(request):
 
     return JsonResponse(response)
 
+def export_csv_msc(request):
+    response = HttpResponse(content_type = 'text/csv')
+    response['Content-Disposition'] = 'attachment;filename = "msc_info_export.csv"'
+
+    writer = csv.writer(response)
+    writer.writerow(['姓名','学号','性别','介绍','学院','邮箱','是否调剂','学历','qq号','手机号','寝室','注册时间','录取部门','备注',])
+    for i in Layman.objects.all():
+        writer.writerow([i.name,i.schoolID,i.sex,i.introduce, i.college,i.email,i.adjust,i.degree,i.QQnumber,i.telephone,i.dorm,i.applydate])
+
+    return response
+
+def export_csv_cc(request):
+    response = HttpResponse(content_type = 'text/csv')
+    response['Content-Disposition'] = 'attachment;filename = "cc_info_export.csv"'
+
+    writer = csv.writer(response)
+    writer.writerow(['姓名','学号','性别','介绍','邮箱','是否愿意成为组长','手机号','qq号','寝室','班级','是否录取','备注',])
+    for i in CC.objects.all():
+        writer.writerow([i.name,i.schoolID,i.sex,i.introduce,i.email,i.leader,i.telephone,i.QQnumber,i.dorm,i.classes,i.passed])
+       
+    return response
 
 
 """
@@ -223,4 +245,3 @@ def cc(request):
 
 def index(request):
     return HttpResponse("index")
-
